@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://gj3pmf6a6mwl"]
+
+[ext_resource type="Script" uid="uid://dvsixkgs75vml" path="res://Scripts/show_spin.gd" id="1_2x2ia"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_2x2ia")

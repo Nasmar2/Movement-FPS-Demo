@@ -1,0 +1,80 @@
+[gd_scene load_steps=15 format=3 uid="uid://bbf4h6bkhnx6l"]
+
+[ext_resource type="PackedScene" uid="uid://dh4m13vcm0kat" path="res://Scenes/FPS_Controller.tscn" id="1_mfwqq"]
+[ext_resource type="Texture2D" uid="uid://cof5uh73uj0ht" path="res://Assets/Textures/Sky Texture/industrial_sunset_puresky_4k.hdr" id="1_v50fn"]
+[ext_resource type="Texture2D" uid="uid://dcc45aeywkrqf" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Dark/texture_03.png" id="2_35rf4"]
+[ext_resource type="PackedScene" uid="uid://b7hdkdp0rc7v6" path="res://Assets/Models/Simple Ramp.fbx" id="2_yvv8f"]
+[ext_resource type="PackedScene" uid="uid://dgwnwm1i7bv71" path="res://Assets/Models/Small Ramp.fbx" id="3_sino6"]
+[ext_resource type="Texture2D" uid="uid://boyscvsx8n2rj" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Orange/texture_06.png" id="5_jxbst"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bejs4"]
+panorama = ExtResource("1_v50fn")
+
+[sub_resource type="Sky" id="Sky_vgj87"]
+sky_material = SubResource("PanoramaSkyMaterial_bejs4")
+
+[sub_resource type="Environment" id="Environment_wtxf6"]
+background_mode = 2
+sky = SubResource("Sky_vgj87")
+ambient_light_source = 3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4s5bp"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x78de"]
+albedo_texture = ExtResource("2_35rf4")
+uv1_scale = Vector3(100, 100, 100)
+texture_filter = 4
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_troa5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7cv71"]
+albedo_texture = ExtResource("5_jxbst")
+uv1_scale = Vector3(6, 6, 6)
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_ufv5b"]
+material = SubResource("StandardMaterial3D_7cv71")
+size = Vector3(1, 0.855, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wtxf6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.682586, 0.347672, -0.642807, 0.0126103, 0.873853, 0.486026, 0.730697, -0.339861, 0.592096, 0, 0, 0)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Plane" type="CSGMesh3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_4s5bp")
+material = SubResource("StandardMaterial3D_x78de")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_mfwqq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.605103, 1.03948, -0.283942)
+
+[node name="Simple Ramp" parent="." instance=ExtResource("2_yvv8f")]
+transform = Transform3D(0.999423, 0, -0.0339749, 0, 1, 0, 0.0339749, 0, 0.999423, -5.87216, 1.25264, -3.3763)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Simple Ramp"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Simple Ramp/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_troa5")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." groups=["Reticle_Enable"]]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -6, 1.72, -7.992)
+use_collision = true
+mesh = SubResource("BoxMesh_ufv5b")
+
+[node name="Small Ramp" parent="." instance=ExtResource("3_sino6")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.7714, 3.99123, -8.08516)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.69833, -8.05845)
+shadow_enabled = true
+spot_range = 7.97
+spot_attenuation = -0.34
+spot_angle = 24.05

@@ -1,0 +1,302 @@
+[gd_scene load_steps=21 format=3 uid="uid://dh4m13vcm0kat"]
+
+[ext_resource type="Script" path="res://Scripts/fps_controller.gd" id="1_76y4a"]
+[ext_resource type="Script" path="res://Scripts/reticle.gd" id="2_bjydx"]
+[ext_resource type="Theme" uid="uid://cyhnjhdxhd4y4" path="res://Assets/Themes/debug_theme.tres" id="3_yr3xd"]
+[ext_resource type="StyleBox" uid="uid://bfjan7uduh4xl" path="res://Assets/Themes/debug_panel.tres" id="4_0bsuj"]
+[ext_resource type="Script" path="res://Scripts/debug.gd" id="5_rnwbb"]
+[ext_resource type="Script" path="res://Scripts/state_machine.gd" id="6_3hs14"]
+[ext_resource type="Script" path="res://Scripts/idle_state.gd" id="7_ihi6f"]
+[ext_resource type="Script" path="res://Scripts/running_state.gd" id="8_nd0f5"]
+[ext_resource type="Script" path="res://Scripts/jumping_state.gd" id="9_fmd18"]
+[ext_resource type="Script" path="res://Scripts/falling_state.gd" id="11_8q02h"]
+[ext_resource type="Script" path="res://Scripts/sliding_state.gd" id="11_na0j1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cevww"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uhq4g"]
+
+[sub_resource type="Animation" id="Animation_ruxg8"]
+length = 0.0535
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ControllerCamera:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ControllerCamera:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ControllerCamera:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_ufk5x"]
+resource_name = "Running"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ControllerCamera:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.015, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, -0.015, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0.015, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ControllerCamera:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.05, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0.05, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ControllerCamera:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xfi3n"]
+_data = {
+"RESET": SubResource("Animation_ruxg8"),
+"Running": SubResource("Animation_ufk5x")
+}
+
+[sub_resource type="Animation" id="Animation_mglh3"]
+resource_name = "Crouch"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ControllerCamera/Camera3D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.5, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_q51xs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ControllerCamera/Camera3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_444uv"]
+resource_name = "Uncrouch"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ControllerCamera/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:shape:height")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3qneo"]
+_data = {
+"Crouch": SubResource("Animation_mglh3"),
+"RESET": SubResource("Animation_q51xs"),
+"Uncrouch": SubResource("Animation_444uv")
+}
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_controller", "collision_shape", "animation_player")]
+script = ExtResource("1_76y4a")
+max_air_speed = 10.0
+speed = 10
+jump_velocity = 8.0
+acceleration = 0.05
+decceleration = null
+mouse_sensitivity = null
+air_control = 0.25
+slide_decel = 0.01
+push_multiplier = 0.2
+max_slide_speed = null
+max_air_slide_speed = null
+camera_controller = NodePath("ControllerCamera/Camera3D")
+collision_shape = NodePath("CollisionShape3D")
+animation_player = NodePath("PlayerBobbing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0247378, 0.0117908, -0.0142088)
+shape = SubResource("CapsuleShape3D_cevww")
+
+[node name="CharacterMesh" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0247378, -0.0117908, 0.0142088)
+visible = false
+mesh = SubResource("CapsuleMesh_uhq4g")
+skeleton = NodePath("../..")
+
+[node name="RayCast3D" type="RayCast3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0247378, -0.208192, 0.0142088)
+
+[node name="PlayerBobbing" type="AnimationPlayer" parent="."]
+deterministic = true
+libraries = {
+"": SubResource("AnimationLibrary_xfi3n")
+}
+
+[node name="CrouchAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3qneo")
+}
+
+[node name="ControllerCamera" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="ControllerCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="ControllerCamera/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -6.57856e-08, -1, 0, 1.505, -4.37114e-08, 0, 0, 0)
+debug_shape_thickness = 5
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="ControllerCamera/Camera3D"]
+update_mode = 1
+box_projection = true
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("player_controller", "raycast")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_bjydx")
+player_controller = NodePath("../..")
+raycast = NodePath("../../ControllerCamera/Camera3D/RayCast3D")
+
+[node name="Debug" type="PanelContainer" parent="UserInterface"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 50.0
+theme = ExtResource("3_yr3xd")
+theme_override_styles/panel = ExtResource("4_0bsuj")
+script = ExtResource("5_rnwbb")
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/Debug"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/Debug/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
+script = ExtResource("6_3hs14")
+CURRENT_STATE = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("7_ihi6f")
+
+[node name="RunningState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("8_nd0f5")
+max_anim_speed = 2.5
+
+[node name="JumpingState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("9_fmd18")
+
+[node name="FallingState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("11_8q02h")
+
+[node name="SlidingState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("11_na0j1")

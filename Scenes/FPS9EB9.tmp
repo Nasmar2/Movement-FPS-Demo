@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dh4m13vcm0kat"]
+
+[ext_resource type="Script" path="res://Scripts/Camera_Controller.gd" id="1_4sks7"]
+[ext_resource type="Script" path="res://Scripts/fps_controller.gd" id="1_5ht1s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cevww"]
+radius = 0.3
+height = 1.8
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_5ht1s")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623162, -0.159849)
+fov = 90.0
+script = ExtResource("1_4sks7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_cevww")

@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://dh4m13vcm0kat"]
+
+[ext_resource type="Script" path="res://Scripts/fps_controller.gd" id="1_76y4a"]
+[ext_resource type="Script" path="res://Scripts/reticle.gd" id="2_bjydx"]
+[ext_resource type="Theme" uid="uid://cyhnjhdxhd4y4" path="res://Assets/Themes/debug_theme.tres" id="3_yr3xd"]
+[ext_resource type="StyleBox" uid="uid://bfjan7uduh4xl" path="res://Assets/Themes/debug_panel.tres" id="4_0bsuj"]
+[ext_resource type="Script" path="res://Scripts/debug.gd" id="5_rnwbb"]
+[ext_resource type="Script" path="res://Scripts/state_machine.gd" id="6_3hs14"]
+[ext_resource type="Script" path="res://Scripts/idle_state.gd" id="7_ihi6f"]
+[ext_resource type="Script" path="res://Scripts/running_state.gd" id="8_nd0f5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cevww"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uhq4g"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_controller")]
+script = ExtResource("1_76y4a")
+max_air_speed = 10.0
+speed = 10
+acceleration = 0.05
+air_control = 0.1
+camera_controller = NodePath("ControllerCamera")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0247378, 0.0117908, -0.0142088)
+shape = SubResource("CapsuleShape3D_cevww")
+
+[node name="CharacterMesh" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0247378, -0.0117908, 0.0142088)
+mesh = SubResource("CapsuleMesh_uhq4g")
+skeleton = NodePath("../..")
+
+[node name="ControllerCamera" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="ControllerCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+fov = 90.0
+
+[node name="RayCast3D" type="RayCast3D" parent="ControllerCamera/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -6.57856e-08, -1, 0, 1.505, -4.37114e-08, 0, 0, 0)
+debug_shape_thickness = 5
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="ControllerCamera/Camera3D"]
+update_mode = 1
+box_projection = true
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("player_controller", "raycast")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_bjydx")
+player_controller = NodePath("../..")
+raycast = NodePath("../../ControllerCamera/Camera3D/RayCast3D")
+
+[node name="Debug" type="PanelContainer" parent="UserInterface"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 50.0
+theme = ExtResource("3_yr3xd")
+theme_override_styles/panel = ExtResource("4_0bsuj")
+script = ExtResource("5_rnwbb")
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/Debug"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/Debug/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
+script = ExtResource("6_3hs14")
+CURRENT_STATE = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("7_ihi6f")
+
+[node name="RunningState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("8_nd0f5")

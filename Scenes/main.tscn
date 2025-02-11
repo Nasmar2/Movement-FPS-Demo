@@ -1,0 +1,357 @@
+[gd_scene load_steps=21 format=3 uid="uid://bbf4h6bkhnx6l"]
+
+[ext_resource type="PackedScene" uid="uid://dh4m13vcm0kat" path="res://Scenes/Player Related/FPS_Controller.tscn" id="1_mfwqq"]
+[ext_resource type="Texture2D" uid="uid://cof5uh73uj0ht" path="res://Assets/Textures/Sky Texture/industrial_sunset_puresky_4k.hdr" id="1_v50fn"]
+[ext_resource type="Script" uid="uid://dvny4v5qjnak0" path="res://Scripts/void_handling.gd" id="1_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://d0ml25xf7oiwh" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Dark/texture_01.png" id="3_8gbba"]
+[ext_resource type="Texture2D" uid="uid://cc6f8625ctgex" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Red/texture_02.png" id="4_kry3j"]
+[ext_resource type="Texture2D" uid="uid://kmns0f8o1ume" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Purple/texture_02.png" id="5_21xkr"]
+[ext_resource type="PackedScene" uid="uid://gj3pmf6a6mwl" path="res://Scenes/Guns/spin_display.tscn" id="7_6bp64"]
+[ext_resource type="Texture2D" uid="uid://ctjmiptnkib38" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Light/texture_13.png" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://dhdk3vr18041n" path="res://Scenes/Guns/Shotgun/shotgun_weapon.tscn" id="9_ynf5e"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bejs4"]
+panorama = ExtResource("1_v50fn")
+
+[sub_resource type="Sky" id="Sky_344ge"]
+sky_material = SubResource("PanoramaSkyMaterial_bejs4")
+
+[sub_resource type="Environment" id="Environment_wtxf6"]
+background_mode = 2
+sky = SubResource("Sky_344ge")
+ambient_light_source = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjvhh"]
+albedo_texture = ExtResource("3_8gbba")
+uv1_scale = Vector3(3, 3, 3)
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_bo1nx"]
+material = SubResource("StandardMaterial3D_jjvhh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kry3j"]
+albedo_texture = ExtResource("4_kry3j")
+uv1_scale = Vector3(3, 3, 3)
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_kry3j"]
+material = SubResource("StandardMaterial3D_kry3j")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6bp64"]
+albedo_texture = ExtResource("5_21xkr")
+uv1_scale = Vector3(3, 3, 3)
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_21xkr"]
+material = SubResource("StandardMaterial3D_6bp64")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ynf5e"]
+albedo_texture = ExtResource("8_344ge")
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="PrismMesh" id="PrismMesh_6bp64"]
+material = SubResource("StandardMaterial3D_ynf5e")
+left_to_right = 0.0
+size = Vector3(20.685, 9.075, 10)
+
+[node name="Main" type="Node3D"]
+
+[node name="CheckpointHolder" type="Node" parent="."]
+
+[node name="Void Handling" type="Node3D" parent="CheckpointHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.8944, 0, 0)
+script = ExtResource("1_ynf5e")
+checkpoints = Array[NodePath]([NodePath("Checkpoint 1"), NodePath("Checkpoint 2"), NodePath("Checkpoint 3"), NodePath("Checkpoint 4"), NodePath("Checkpoint 5")])
+
+[node name="Checkpoint 1" type="Node3D" parent="CheckpointHolder/Void Handling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9692, 28.6425, 36.4335)
+
+[node name="Checkpoint 2" type="Node3D" parent="CheckpointHolder/Void Handling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2184, 41.2182, -57.7146)
+
+[node name="Checkpoint 3" type="Node3D" parent="CheckpointHolder/Void Handling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.9702, 65.5839, -95.0524)
+
+[node name="Checkpoint 4" type="Node3D" parent="CheckpointHolder/Void Handling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.8449, 65.5839, -168.717)
+
+[node name="Checkpoint 5" type="Node3D" parent="CheckpointHolder/Void Handling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.9936, 65.5839, -183.634)
+
+[node name="TextHolder" type="Node3D" parent="."]
+
+[node name="Label3D" type="Label3D" parent="TextHolder"]
+transform = Transform3D(2.01286, 0, 1.92474, 0, 2.785, 0, -1.92474, 0, 2.01286, -8.02633, 28.4454, 18.3518)
+pixel_size = 0.001
+double_sided = false
+texture_filter = 4
+modulate = Color(0, 0, 0, 1)
+text = "You can press CTRL to slide while moving and pass the obstacle
+"
+font_size = 100
+outline_size = 0
+
+[node name="Label3D2" type="Label3D" parent="TextHolder"]
+transform = Transform3D(1.53398, 0, 2.32446, 0, 2.785, 0, -2.32446, 0, 1.53398, -11.0166, 28.4454, -19.1683)
+pixel_size = 0.001
+double_sided = false
+texture_filter = 4
+modulate = Color(0, 0, 0, 1)
+text = "If a ledge seems like it's too high up, just look at the edge and jump close to it
+and you should be able to climb it up automatically"
+font_size = 100
+outline_size = 0
+
+[node name="Label3D3" type="Label3D" parent="TextHolder"]
+transform = Transform3D(1.53398, 0, 2.32446, 0, 2.785, 0, -2.32446, 0, 1.53398, -11.0166, 38.9514, -81.1581)
+pixel_size = 0.001
+double_sided = false
+texture_filter = 4
+modulate = Color(0, 0, 0, 1)
+text = "This is self explanatory, if you are on a wall and press jump you launch
+in the opposite direction, use this to wall jump
+"
+font_size = 100
+outline_size = 0
+
+[node name="Label3D4" type="Label3D" parent="TextHolder"]
+transform = Transform3D(0.337283, 0, -2.7645, 0, 2.785, 0, 2.7645, 0, 0.337283, 4.56405, 65.4896, -93.5646)
+pixel_size = 0.001
+double_sided = false
+texture_filter = 4
+modulate = Color(0, 0, 0, 1)
+text = "You can wallrun by jumping on a wall and continuing your movement,
+pair that up with the walljumping and you can pass this obstacle
+"
+font_size = 100
+outline_size = 0
+
+[node name="Label3D5" type="Label3D" parent="TextHolder"]
+transform = Transform3D(2.785, 0, 0, 0, 2.785, 0, 0, 0, 2.785, -0.0423598, 65.4896, -186.014)
+pixel_size = 0.001
+double_sided = false
+texture_filter = 4
+modulate = Color(0, 0, 0, 1)
+text = "Normally you can't go to the other side only with movement,
+use the shotgun's knockback to boost yourself to the other side"
+font_size = 100
+outline_size = 0
+
+[node name="Label3D6" type="Label3D" parent="TextHolder"]
+transform = Transform3D(0.357683, 0, 2.76194, 0, 2.785, 0, -2.76194, 0, 0.357683, -83.4569, 65.0567, -184.776)
+pixel_size = 0.001
+double_sided = false
+texture_filter = 4
+modulate = Color(0, 0, 0, 1)
+text = "You can also slide on slopes, sliding on slopes make your character
+accelerate indefinetely and you pickup speed very fast"
+font_size = 100
+outline_size = 0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wtxf6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.682586, 0.347672, -0.642807, 0.0126103, 0.873853, 0.486026, 0.730697, -0.339861, 0.592096, 0, 0, 0)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_mfwqq")]
+transform = Transform3D(0.999089, 0, 0.0426778, 0, 1, 0, -0.0426778, 0, 0.999089, 0.0895195, 69.1027, -172.825)
+
+[node name="Shotgun Weapon" parent="." instance=ExtResource("9_ynf5e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0146753, 64.3416, -184.37)
+
+[node name="Spin Display" parent="Shotgun Weapon" instance=ExtResource("7_6bp64")]
+
+[node name="Cube" type="CSGMesh3D" parent="."]
+transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 95.2405, -0.0230789, 23.8073, 20.9768)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_bo1nx")
+
+[node name="Cube3" type="CSGMesh3D" parent="."]
+transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 37.6526, -0.0230789, 36.1319, -70.879)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_bo1nx")
+
+[node name="Cube16" type="CSGMesh3D" parent="."]
+transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 37.6526, -0.0230789, 60.5187, -108.516)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_bo1nx")
+
+[node name="Cube23" type="CSGMesh3D" parent="."]
+transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 37.6526, -0.0230789, 60.5187, -183.552)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_bo1nx")
+
+[node name="Cube25" type="CSGMesh3D" parent="."]
+transform = Transform3D(63.1073, 0, 0, 0, 4.32936, 0, 0, 0, 55.7646, -81.7211, 60.5187, -183.552)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_bo1nx")
+
+[node name="Cube13" type="CSGMesh3D" parent="."]
+transform = Transform3D(15.7571, 0, 0, 0, -1.89242e-07, -37.6526, 0, 4.32937, -1.64585e-06, -0.0230789, 39.5334, -91.8451)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_bo1nx")
+
+[node name="Cube2" type="CSGMesh3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 4.61601, 0, 0, 0, 5.466, -7.24769, 26.7395, -31.3407)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube4" type="CSGMesh3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 4.61601, 0, 0, 0, 5.466, -28.5445, 60.4773, -184.484)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube5" type="CSGMesh3D" parent="."]
+transform = Transform3D(4.25798, 0, 0, 0, 6.13202, 0, 0, 0, 5.98171, -88.8501, 65.7188, -202.878)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube9" type="CSGMesh3D" parent="."]
+transform = Transform3D(4.25798, 0, 0, 0, 6.13202, 0, 0, 0, 5.98171, -103.278, 71.4448, -203.163)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube8" type="CSGMesh3D" parent="."]
+transform = Transform3D(6.17017, 0, 0, 0, 6.13202, 0, 0, 0, 5.98171, -57.1411, 65.7188, -163.186)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube6" type="CSGMesh3D" parent="."]
+transform = Transform3D(13.0127, 0, 0, 0, 6.13202, 0, 0, 0, 7.84495, -99.9371, 65.7188, -203.119)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube29" type="CSGMesh3D" parent="."]
+transform = Transform3D(8.47918, 0, 5.95083, 0, 6.13202, 0, -9.87085, 0, 5.11184, -99.9371, 65.7188, -172.163)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube7" type="CSGMesh3D" parent="."]
+transform = Transform3D(4.85557, 0, 0, 0, 6.13202, 0, 0, 0, 11.7805, -99.937, 65.7188, -193.292)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube10" type="CSGMesh3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 4.61601, 0, 0, 0, 5.466, 2.68598, 29.6974, -37.2391)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube24" type="CSGMesh3D" parent="."]
+transform = Transform3D(3.10848, 0, 0, 0, 0.842788, 0, 0, 0, 2.97167, -0.0230236, 63.0441, -184.343)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_21xkr")
+
+[node name="Cube11" type="CSGMesh3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 4.61601, 0, 0, 0, 5.466, -3.45159, 33.3138, -46.0397)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube17" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.414041, 0, 0, 0, 4.61601, 0, 0, 0, 8.54448, -4.29078, 66.2332, -96.5881)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube18" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.414041, 0, 0, 0, 4.61601, 0, 0, 0, 8.54448, 3.15918, 67.365, -102.72)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube19" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.414041, 0, 0, 0, 4.61601, 0, 0, 0, 8.54448, -4.27891, 68.6231, -112.982)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube20" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.414041, 0, 0, 0, 4.61601, 0, 0, 0, 8.54448, -4.29078, 66.2332, -133.725)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube26" type="CSGMesh3D" parent="."]
+transform = Transform3D(-1.80983e-08, 0, 8.54448, 0, 4.61601, 0, -0.414041, 0, -3.73491e-07, -76.7747, 66.2332, -158.435)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube27" type="CSGMesh3D" parent="."]
+transform = Transform3D(-1.80983e-08, 0, 8.54448, 0, 4.61601, 0, -0.414041, 0, -3.73491e-07, -83.7296, 67.1356, -165.506)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube28" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.186133, 0, 7.63239, 0, 4.61601, 0, -0.369844, 0, 3.8412, -95.2413, 68.1898, -158.147)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube30" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.412779, 0, 0.666675, 0, 4.61601, 0, -0.0323052, 0, -8.51843, -107.123, 71.6683, -179.863)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube21" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.414041, 0, 0, 0, 4.61601, 0, 0, 0, 8.54448, 3.15918, 67.365, -139.857)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube22" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.414041, 0, 0, 0, 4.61601, 0, 0, 0, 8.54448, -4.27891, 68.6231, -150.119)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube14" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.211823, 0, 0, 0, 27.1834, 0, 0, 0, 5.313, 2.43366, 51.8703, -87.0593)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube15" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.211823, 0, 0, 0, 27.1834, 0, 0, 0, 5.313, -2.46251, 51.8703, -87.0593)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="Cube12" type="CSGMesh3D" parent="."]
+transform = Transform3D(-6.41648e-08, 0, 21.8625, 0, 8.33029, 0, -1.46792, 0, -9.55643e-07, -0.0521155, 31.1796, 9.56966)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_kry3j")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.625067, 0, 0, 0, 0.726364, 0, 0, 0, 0.677144, -91.0401, 65.4809, -192.862)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("PrismMesh_6bp64")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.625067, 0, 0, 0, 0.726364, 0, 0, 0, 0.596602, -80.2594, 65.4809, -202.888)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("PrismMesh_6bp64")
