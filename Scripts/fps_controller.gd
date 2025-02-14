@@ -14,14 +14,13 @@ extends CharacterBody3D
 @export var air_control : float = 0.2
 @export var slide_decel : float = 0.05
 @export var max_air_slide_speed : float = 30
+@export var hop_distance : float = 5.0
 @export var camera_controller : Camera3D
 @export var collision_shape : CollisionShape3D
 @export var animation_player : AnimationPlayer
 @export var AirTimer : Timer
 @onready var ledge_raycast = $LedgeRaycast
-@onready var shotgun = $"WeaponHandling/Container/SubViewport/Shotgun Weapon"
-
-
+@export var shotgun : RigidBody3D
 
 var mouse_input : bool = false
 var rotation_input : float
@@ -42,13 +41,11 @@ var floor_normal
 var slope_dir
 var coyote_state : bool = false
 var wall_normal
-var can_ledge
+var can_ledge : bool = true
 var horizontal_velo = Vector3.ZERO
 var coyote_timer : float = 0
 var can_jump
 var external_knockback = Vector3.ZERO
-
-
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -78,7 +75,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		mouse_rotation.y += rotation_input * mouse_sensitivity
 		
 func update_camera(_delta):
-	
 	#Here we set camera camera rotation and player rotation in order to move them seperately.
 	player_rotation = Vector3(0.0, mouse_rotation.y, 0.0)
 	camera_rotation = Vector3(mouse_rotation.x,0.0 , 0.0)
@@ -224,7 +220,7 @@ func _physics_process(delta: float) -> void:
 		if can_ledge and ledge_raycast.is_colliding() and !sliding:
 			var tween := get_tree().create_tween()
 				
-			tween.tween_property(self, "velocity", Vector3(0, 5, 0), 0.1).set_ease(Tween.EASE_IN)
+			tween.tween_property(self, "velocity", Vector3(0, hop_distance, 0), 0.1).set_ease(Tween.EASE_IN)
 	else:
 		PhysicsServer3D.area_set_param(get_viewport().find_world_3d().space, PhysicsServer3D.AREA_PARAM_GRAVITY, 24.0)
 		
@@ -248,11 +244,11 @@ func coyote_time(delta) -> void:
 			
 	Global.debug.add_property("coyote_timer", coyote_timer, 20)
 
-	
+
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	can_ledge = true
+	can_ledge = false
 
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
-	can_ledge = false
+	can_ledge = true

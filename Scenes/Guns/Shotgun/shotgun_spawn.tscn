@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlgdpy7tpcifp"]
+
+[ext_resource type="Script" uid="uid://r2yi34heiv7x" path="res://Scenes/Guns/Shotgun/shotgun_spawn.gd" id="1_v3lfq"]
+[ext_resource type="PackedScene" uid="uid://cqgrxds081kl7" path="res://Scenes/Player Related/shader_applier.tscn" id="2_3n0j8"]
+[ext_resource type="PackedScene" uid="uid://wt50h8sc7hpl" path="res://Scenes/Guns/Shotgun/shotgun2.0.fbx" id="2_et60e"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lkfjn"]
+radius = 0.230595
+height = 1.78548
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lkfjn"]
+size = Vector3(0.294937, 1.67051, 0.0650635)
+
+[node name="Shotgun Weapon" type="RigidBody3D" groups=["Reticle_Enable", "Shotgun"]]
+collision_layer = 2
+collision_mask = 2
+continuous_cd = true
+script = ExtResource("1_v3lfq")
+
+[node name="Area3D" type="Area3D" parent="." groups=["Reticle_Enable", "Shotgun"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0434272, 0.170957, 0)
+shape = SubResource("CapsuleShape3D_lkfjn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0566886, 0.155927, 0.00768471)
+shape = SubResource("BoxShape3D_lkfjn")
+
+[node name="ShaderApplier" parent="." instance=ExtResource("2_3n0j8")]
+
+[node name="shotgun2_0" parent="." instance=ExtResource("2_et60e")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0139611, -0.0142837, 0.0356958)

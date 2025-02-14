@@ -116,6 +116,7 @@ Slot2={
 
 3d/physics_engine="Jolt Physics"
 jolt_physics_3d/simulation/areas_detect_static_bodies=true
+jolt_physics_3d/simulation/allow_sleep=false
 3d/default_gravity=24.0
 common/physics_interpolation=true
 

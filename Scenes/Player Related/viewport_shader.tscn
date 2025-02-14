@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcmpiql2oi0vy"]
+
+[ext_resource type="Script" uid="uid://c6fgyp1o3hjvv" path="res://Scripts/viewport_shader.gd" id="1_umca5"]
+
+[node name="ViewportShader" type="Node3D"]
+script = ExtResource("1_umca5")

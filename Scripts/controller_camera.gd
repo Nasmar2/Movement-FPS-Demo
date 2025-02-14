@@ -8,6 +8,7 @@ var player = Player
 func _process(_delta: float) -> void:
 	player = owner as Player
 	start_tween()
+	
 
 func start_tween():
 	if player.is_on_wall() and !player.is_on_floor() and !player.sliding:

@@ -196,7 +196,7 @@ _data = {
 size = Vector2(0.1, 0.1)
 orientation = 1
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_controller", "collision_shape", "animation_player", "AirTimer", "shotgun")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_controller", "collision_shape", "animation_player", "AirTimer")]
 floor_stop_on_slope = false
 floor_max_angle = 1.48353
 floor_snap_length = 1.0
@@ -214,7 +214,6 @@ camera_controller = NodePath("ControllerCamera/Camera3D")
 collision_shape = NodePath("CollisionShape3D")
 animation_player = NodePath("PlayerBobbing")
 AirTimer = NodePath("Air Time Timer")
-shotgun = NodePath("ControllerCamera/Camera3D/WeaponHandling/Shotgun Weapon")
 
 [node name="Air Time Timer" type="Timer" parent="."]
 wait_time = 0.25
@@ -286,7 +285,6 @@ gun_impulse = 5.0
 transform = Transform3D(0.121869, 0, 0.992546, 0, 1, 0, -0.992546, 0, 0.121869, 0.455852, -0.08, -0.670142)
 visible = false
 collision_layer = 0
-collision_mask = 0
 axis_lock_linear_y = true
 mass = 3.5
 gravity_scale = 0.0

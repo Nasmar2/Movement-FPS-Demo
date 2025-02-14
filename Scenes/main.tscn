@@ -5,10 +5,10 @@
 [ext_resource type="Script" uid="uid://dvny4v5qjnak0" path="res://Scripts/void_handling.gd" id="1_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://d0ml25xf7oiwh" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Dark/texture_01.png" id="3_8gbba"]
 [ext_resource type="Texture2D" uid="uid://cc6f8625ctgex" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Red/texture_02.png" id="4_kry3j"]
+[ext_resource type="PackedScene" uid="uid://dlgdpy7tpcifp" path="res://Scenes/Guns/Shotgun/shotgun_spawn.tscn" id="4_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://kmns0f8o1ume" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Purple/texture_02.png" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://gj3pmf6a6mwl" path="res://Scenes/Guns/spin_display.tscn" id="7_6bp64"]
 [ext_resource type="Texture2D" uid="uid://ctjmiptnkib38" path="res://Assets/Textures/Kenney's Grid Textures/PNG/Light/texture_13.png" id="8_344ge"]
-[ext_resource type="PackedScene" uid="uid://dhdk3vr18041n" path="res://Scenes/Guns/Shotgun/shotgun_weapon.tscn" id="9_ynf5e"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bejs4"]
 panorama = ExtResource("1_v50fn")
@@ -157,12 +157,12 @@ light_energy = 2.0
 shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_mfwqq")]
-transform = Transform3D(0.999089, 0, 0.0426778, 0, 1, 0, -0.0426778, 0, 0.999089, 0.0895195, 69.1027, -172.825)
+transform = Transform3D(0.999089, 0, 0.0426778, 0, 1, 0, -0.0426778, 0, 0.999089, 0.0895195, 67.8596, -174.025)
 
-[node name="Shotgun Weapon" parent="." instance=ExtResource("9_ynf5e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0146753, 64.3416, -184.37)
+[node name="Shotgun Weapon" parent="." instance=ExtResource("4_ynf5e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64.0384, -184.526)
 
-[node name="Spin Display" parent="Shotgun Weapon" instance=ExtResource("7_6bp64")]
+[node name="Spin" parent="Shotgun Weapon" instance=ExtResource("7_6bp64")]
 
 [node name="Cube" type="CSGMesh3D" parent="."]
 transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 95.2405, -0.0230789, 23.8073, 20.9768)

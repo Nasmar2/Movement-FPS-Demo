@@ -8,6 +8,7 @@ var shader_despawn : float = 20.0
 @onready var shader_applier = $ShaderApplier
 @export var shotgun_strength : float = 5.0
 
+
 signal pick_up
 
 func _ready() -> void:
@@ -17,11 +18,9 @@ func _ready() -> void:
 	
 	
 func _process(delta: float) -> void:
-	if global_position.distance_to(Global.player.global_position) < shader_despawn and !weapon_handler:
-		shader_applier._apply_shader_material()
-	else:
-		shader_applier.erase_mesh_to_children()
-		
+	pass
+
+
 	
 	
 func _input(event: InputEvent) -> void:
@@ -43,6 +42,7 @@ func _input(event: InputEvent) -> void:
 func _on_pick_up() -> void:
 	if !animation_player.is_playing():
 		$AnimationPlayer.play("Pickup")
+		
 
 
 		
@@ -53,7 +53,6 @@ func shotgun_knockback() -> void:
 	Global.player.max_air_speed = 30.0
 	Global.player.velocity += knockback
 	
-
 	
 
 
