@@ -19,10 +19,6 @@ func set_anim_speed(p_speed):
 	ANIMATION_PLAYER.speed_scale = lerp(0.0, max_anim_speed, alpha)
 
 func _physics_update(_delta):
-	
-	
-	
-		
 	if PLAYER.velocity.length() < 0.25 and PLAYER.is_on_floor():
 		transition.emit("IdleState")
 	elif Global.player.can_jump:

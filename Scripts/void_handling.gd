@@ -3,7 +3,7 @@ extends Node3D
 @export var checkpoints: Array[NodePath] # Array of checkpoint node paths
 var visited_checkpoints := {} # Dictionary to track visited checkpoints
 
-func _process(delta: float):
+func _process(_delta: float):
 	# Check if the player is below the VoidHandler
 	if Global.player.global_position.y < self.global_position.y:
 		teleport_to_closest_checkpoint()

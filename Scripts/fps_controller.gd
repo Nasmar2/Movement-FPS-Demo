@@ -2,6 +2,7 @@ class_name Player
 
 extends CharacterBody3D
 
+@export var top_air_speed : float = 50.0
 @export var max_air_speed : float = 20.0
 @export var speed = 5
 @export var slide_speed : float = 1.25
@@ -128,7 +129,9 @@ func slide(_delta) -> void:
 		$CrouchAnimation.play("Uncrouch")
 		sliding = false
 		AirTimer.start()
-		
+	
+	Global.debug.add_property("AIRTIMER", AirTimer.time_left, 21)
+	
 	if is_on_floor() and !sliding:
 		if AirTimer.time_left == 0.0:
 			max_air_speed = 10.0
@@ -159,10 +162,13 @@ func slide(_delta) -> void:
 	Global.debug.add_property("PUSHIN_P", pushing_p, 17)
 	Global.debug.add_property("AIR VELO", air_velo, 16)
 		
+	max_air_speed = clamp(max_air_speed, 0.0, top_air_speed)
+	
 func _physics_process(delta: float) -> void:
 	update_camera(delta)
 	slide(delta)
 	coyote_time(delta)
+	check_collisions()
 
 	
 	# Add the gravity.
@@ -244,11 +250,8 @@ func coyote_time(delta) -> void:
 			
 	Global.debug.add_property("coyote_timer", coyote_timer, 20)
 
-
-
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	can_ledge = false
-
-
-func _on_area_3d_body_exited(body: Node3D) -> void:
-	can_ledge = true
+func check_collisions() -> void:
+	if $LedgeDetection.get_overlapping_bodies().size() > 0:
+		can_ledge = false
+	else:
+		can_ledge = true

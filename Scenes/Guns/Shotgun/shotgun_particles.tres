@@ -1,0 +1,33 @@
+[gd_resource type="SphereMesh" load_steps=5 format=3 uid="uid://do2ini20l6lcs"]
+
+[sub_resource type="Gradient" id="Gradient_7ubb1"]
+colors = PackedColorArray(0.580392, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5si6i"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0qn8r"]
+seamless = true
+seamless_blend_skirt = 0.396
+color_ramp = SubResource("Gradient_7ubb1")
+noise = SubResource("FastNoiseLite_5si6i")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wfer4"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(1, 0.71544, 0.349052, 1)
+roughness = 0.8
+emission_enabled = true
+rim_enabled = true
+ao_enabled = true
+backlight_enabled = true
+detail_blend_mode = 3
+detail_albedo = SubResource("NoiseTexture2D_0qn8r")
+texture_filter = 4
+
+[resource]
+material = SubResource("StandardMaterial3D_wfer4")
+radius = 0.026
+height = 0.05

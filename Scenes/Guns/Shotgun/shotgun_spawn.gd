@@ -4,7 +4,7 @@ var shader_despawn : float = 20.0
 var weapon_handler
 @onready var shader_applier = $ShaderApplier
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if global_position.distance_to(Global.player.global_position) < shader_despawn and !weapon_handler:
 		shader_applier._apply_shader_material()
 	else:

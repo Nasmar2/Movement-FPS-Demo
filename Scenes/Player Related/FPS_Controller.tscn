@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dh4m13vcm0kat"]
+[gd_scene load_steps=25 format=3 uid="uid://dh4m13vcm0kat"]
 
 [ext_resource type="Script" uid="uid://nr1cvb5yx1y5" path="res://Scripts/fps_controller.gd" id="1_76y4a"]
 [ext_resource type="Script" uid="uid://cuxdy1ne2mm2w" path="res://Scripts/controller_camera.gd" id="2_al0pw"]
@@ -190,12 +190,6 @@ _data = {
 &"Uncrouch": SubResource("Animation_444uv")
 }
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lvosb"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_hjrl2"]
-size = Vector2(0.1, 0.1)
-orientation = 1
-
 [node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_controller", "collision_shape", "animation_player", "AirTimer", "shotgun")]
 floor_stop_on_slope = false
 floor_max_angle = 1.48353
@@ -226,6 +220,7 @@ target_position = Vector3(0, -1.25, 0)
 
 [node name="LedgeDetection" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45517, -0.974175)
+input_capture_on_drag = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LedgeDetection"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0247378, 1.11568, -0.0142088)
@@ -248,6 +243,7 @@ shape = SubResource("CapsuleShape3D_cevww")
 
 [node name="CharacterMesh" type="MeshInstance3D" parent="CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0247378, -0.0117908, 0.0142088)
+visible = false
 mesh = SubResource("CapsuleMesh_uhq4g")
 skeleton = NodePath("../..")
 
@@ -268,6 +264,7 @@ script = ExtResource("2_al0pw")
 [node name="Camera3D" type="Camera3D" parent="ControllerCamera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 current = true
+fov = 101.7
 
 [node name="RayCast3D" type="RayCast3D" parent="ControllerCamera/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -7.67135e-08, -1, 0, 1.755, -4.37114e-08, -0.0247378, 0.0117908, -0.0142088)
@@ -356,15 +353,3 @@ script = ExtResource("11_na0j1")
 
 [node name="WeaponDropPos" type="Node3D" parent="."]
 transform = Transform3D(0.121869, 0, 0.992546, 0, 1, 0, -0.992546, 0, 0.121869, 0.456, -0.08, -0.67)
-
-[node name="ParticleSpawner" type="Node3D" parent="."]
-visible = false
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="ParticleSpawner"]
-transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0.456, -0.08, -0.843507)
-visible = false
-process_material = SubResource("ParticleProcessMaterial_lvosb")
-draw_pass_1 = SubResource("QuadMesh_hjrl2")
-
-[connection signal="body_entered" from="LedgeDetection" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="LedgeDetection" to="." method="_on_area_3d_body_exited"]

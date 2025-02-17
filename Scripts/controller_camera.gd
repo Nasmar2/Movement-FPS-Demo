@@ -5,8 +5,10 @@ var player = Player
 @onready var raycast_right = $"../TweenerRaycasts/Right"
 @onready var camera = $Camera3D
 
-func _process(_delta: float) -> void:
+func _ready() -> void:
 	player = owner as Player
+	
+func _physics_process(_delta: float) -> void:
 	start_tween()
 	
 

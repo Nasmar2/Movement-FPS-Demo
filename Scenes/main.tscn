@@ -355,3 +355,8 @@ transform = Transform3D(0.625067, 0, 0, 0, 0.726364, 0, 0, 0, 0.596602, -80.2594
 use_collision = true
 collision_layer = 3
 mesh = SubResource("PrismMesh_6bp64")
+
+[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.0023, 47.2378, -73.2731)
+size = Vector3(128.045, 58.9067, 283.35)
+resolution = 5

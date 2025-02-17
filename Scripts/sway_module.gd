@@ -7,8 +7,14 @@ var rot_input : float = 0.0
 var tilt_input : float = 0.0
 var tilt_motion : float
 var parent
-var minimum_motion_threshold : float = 0.2
 var sway_x = Vector3.ZERO
+
+@export var minimum_motion_threshold : float = 0.2
+@export var input_strength : float = 7.5
+@export var max_y : float = 40.0
+@export var max_z : float = 30.0
+@export var sway_weight : float = 15.0
+@export var sway_return : float = 5.0
 
 func _ready() -> void:
 	parent = get_parent()
@@ -17,31 +23,21 @@ func _ready() -> void:
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and parent.visible:
-		rot_input = -event.relative.x * Global.player.mouse_sensitivity
-		tilt_input = (-event.relative.y * Global.player.mouse_sensitivity) * 2.5
+		rot_input = -event.relative.x * Global.player.mouse_sensitivity * input_strength
+		tilt_input = (-event.relative.y * Global.player.mouse_sensitivity) * input_strength
 		
 		mouse_rot.z += tilt_input * Global.player.mouse_sensitivity
 		mouse_rot.y += rot_input * Global.player.mouse_sensitivity
 		
-
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if parent.visible:
 		mouse_motion = Global.player.rotation_input * 5.0
 		tilt_motion = Global.player.tilt_input * 5.0 
-	
-
 		
 func _physics_process(delta: float) -> void:
 		shotgun_sway(delta)
 
-		#print("Mouse motion: ", mouse_motion)
-		#print("Tilt motion: ", tilt_motion)
-		
 func shotgun_sway(delta) -> void:
-	var sway_weight : float = 50.0
-	var sway_return : float = 10.0
-	
-	
 	if abs(mouse_motion) > minimum_motion_threshold or abs(tilt_motion) > minimum_motion_threshold:
 		sway_x = sway_x.lerp(mouse_rot, sway_weight * delta)
 	else:
@@ -49,9 +45,8 @@ func shotgun_sway(delta) -> void:
 		
 		mouse_rot.y = 0.0
 		mouse_rot.z = 0.0
-		
+	
+	sway_x.y = clamp(sway_x.y, -max_y, max_y)
+	sway_x.z = clamp(sway_x.z, -max_z, max_z)
+
 	parent.rotation_degrees = sway_x + original_rotation
-	
-	print(sway_x)
-	#print(mouse_rot)
-	
