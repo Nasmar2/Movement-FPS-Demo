@@ -6,6 +6,7 @@ extends GlobalStateClass
 func enter() -> void:
 	PLAYER.velocity = Vector3.ZERO
 	ANIMATION_PLAYER.pause()
+	
 
 func _update(_delta):
 	if PLAYER.velocity.length() > 0.25 and PLAYER.is_on_floor():

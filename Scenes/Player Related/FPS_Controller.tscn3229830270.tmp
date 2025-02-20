@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dh4m13vcm0kat"]
+[gd_scene load_steps=26 format=3 uid="uid://dh4m13vcm0kat"]
 
 [ext_resource type="Script" uid="uid://nr1cvb5yx1y5" path="res://Scripts/fps_controller.gd" id="1_76y4a"]
 [ext_resource type="Script" uid="uid://cuxdy1ne2mm2w" path="res://Scripts/controller_camera.gd" id="2_al0pw"]
@@ -191,45 +191,7 @@ _data = {
 &"Uncrouch": SubResource("Animation_444uv")
 }
 
-[sub_resource type="Animation" id="Animation_lvosb"]
-resource_name = "Shotgun Sway"
-length = 1.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ControllerCamera/Camera3D/WeaponHandling:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.54531, -0.605564, -0.772262), Vector3(0.49, -0.56, -0.772), Vector3(0.54531, -0.605564, -0.772262), Vector3(0.6, -0.56, -0.772), Vector3(0.54531, -0.605564, -0.772262)]
-}
-
-[sub_resource type="Animation" id="Animation_hjrl2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ControllerCamera/Camera3D/WeaponHandling:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.54531, -0.605564, -0.772262)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_hjrl2"]
-_data = {
-&"RESET": SubResource("Animation_hjrl2"),
-&"Shotgun Sway": SubResource("Animation_lvosb")
-}
-
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_controller", "collision_shape", "animation_player", "shotgun_sway_anim", "AirTimer", "shotgun")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_controller", "collision_shape", "animation_player", "AirTimer", "shotgun")]
 floor_stop_on_slope = false
 floor_max_angle = 1.48353
 floor_snap_length = 1.0
@@ -243,11 +205,9 @@ wall_jump_velocity = 9.0
 acceleration = 0.05
 air_control = 0.25
 slide_decel = 0.01
-velocity_threshold = 25.0
 camera_controller = NodePath("ControllerCamera/Camera3D")
 collision_shape = NodePath("CollisionShape3D")
 animation_player = NodePath("PlayerBobbing")
-shotgun_sway_anim = NodePath("Shotgun Sway")
 AirTimer = NodePath("Air Time Timer")
 shotgun = NodePath("ControllerCamera/Camera3D/WeaponHandling/Shotgun Weapon")
 
@@ -299,11 +259,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_3qneo")
 }
 
-[node name="Shotgun Sway" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_hjrl2")
-}
-
 [node name="ControllerCamera" type="Node3D" parent="."]
 script = ExtResource("2_al0pw")
 
@@ -317,12 +272,12 @@ transform = Transform3D(1, 0, 0, 0, -7.67135e-08, -1, 0, 1.755, -4.37114e-08, -0
 collide_with_areas = true
 
 [node name="WeaponHandling" type="Node3D" parent="ControllerCamera/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54531, -0.605564, -0.772262)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 script = ExtResource("13_bjl33")
 gun_impulse = 5.0
 
 [node name="Shotgun Weapon" parent="ControllerCamera/Camera3D/WeaponHandling" instance=ExtResource("14_d6ob7")]
-transform = Transform3D(0.121869, 0, 0.992546, 0, 1, 0, -0.992546, 0, 0.121869, 0, 0, 0)
+transform = Transform3D(0.121869, 0, 0.992546, 0, 1, 0, -0.992546, 0, 0.121869, 0.455852, -0.08, -0.670142)
 visible = false
 collision_layer = 0
 collision_mask = 0

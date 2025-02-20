@@ -6,7 +6,9 @@ extends GlobalStateClass
 
 func enter():
 	ANIMATION_PLAYER.pause()
+	shotgun_sway_anim.pause()
 	PLAYER.velocity.y += PLAYER.jump_velocity
+	
 	
 
 

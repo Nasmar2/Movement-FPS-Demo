@@ -15,10 +15,12 @@ extends CharacterBody3D
 @export var air_control : float = 0.2
 @export var slide_decel : float = 0.05
 @export var max_air_slide_speed : float = 30
+@export var velocity_threshold : float = 10.0
 @export var hop_distance : float = 5.0
 @export var camera_controller : Camera3D
 @export var collision_shape : CollisionShape3D
 @export var animation_player : AnimationPlayer
+@export var shotgun_sway_anim : AnimationPlayer
 @export var AirTimer : Timer
 @onready var ledge_raycast = $LedgeRaycast
 @export var shotgun : RigidBody3D
@@ -47,6 +49,9 @@ var horizontal_velo = Vector3.ZERO
 var coyote_timer : float = 0
 var can_jump
 var external_knockback = Vector3.ZERO
+var on_ground : bool = false
+var ground_delay: float = 0.1
+var ground_timer: float = ground_delay
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -169,7 +174,8 @@ func _physics_process(delta: float) -> void:
 	slide(delta)
 	coyote_time(delta)
 	check_collisions()
-
+	camera_velocity_shake()
+	ground_check(delta)
 	
 	# Add the gravity.
 	velocity += get_gravity() * delta
@@ -255,3 +261,24 @@ func check_collisions() -> void:
 		can_ledge = false
 	else:
 		can_ledge = true
+		
+func camera_velocity_shake() -> void:
+	if velocity.length() > velocity_threshold:
+		var speed : float = 0.04
+		
+		
+		var speed_scale
+		speed_scale = velocity.length() * speed
+		
+		Global.camera_trauma.add_trauma(speed_scale, 5.0, 5.0)
+	else:
+		Global.camera_trauma.add_trauma(0.0, 0.0, 0.0)
+		
+func ground_check(delta) -> void:
+	if is_on_floor():
+		ground_timer -= delta
+		if ground_timer <= 0.0:
+			on_ground = true
+	else:
+		ground_timer = ground_delay
+		on_ground = false

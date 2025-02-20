@@ -6,6 +6,7 @@ extends GlobalStateClass
 
 func enter():
 	ANIMATION_PLAYER.pause()
+	shotgun_sway_anim.pause()
 
 func _update(_delta):
 	pass

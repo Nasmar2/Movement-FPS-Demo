@@ -15,7 +15,7 @@ signal pick_up
 
 func _ready() -> void:
 	weapon_handler = find_parent("WeaponHandling")
-	animation_player = $AnimationPlayer
+	animation_player = $"Gun Functions"
 	
 	
 	
@@ -31,24 +31,23 @@ func _input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("Left_Click") and weapon_handler and !playing_animation and visible:
-			$AnimationPlayer.play("Shooting")
+			animation_player.play("Shooting")
 			particle_manager.shooting_particles()
-			
 			shotgun_knockback()
-		
+			Global.camera_trauma.add_trauma(5.0, 0.8, 5.0)
 			
 	
 			
 	elif event is InputEventKey:
 		if event.is_action_pressed("Reload") and weapon_handler and !playing_animation and visible:
-			$AnimationPlayer.play("Reloading")
+			animation_player.play("Reloading")
 
 
 	
 	
 func _on_pick_up() -> void:
 	if !playing_animation:
-		$AnimationPlayer.play("Pickup")
+		animation_player.play("Pickup")
 		
 
 

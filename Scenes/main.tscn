@@ -157,7 +157,7 @@ light_energy = 2.0
 shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_mfwqq")]
-transform = Transform3D(0.999089, 0, 0.0426778, 0, 1, 0, -0.0426778, 0, 0.999089, 0.0895195, 67.8596, -174.025)
+transform = Transform3D(0.999089, 0, 0.0426778, 0, 1, 0, -0.0426778, 0, 0.999089, 0.0895195, 67.8596, -177.152)
 
 [node name="Shotgun Weapon" parent="." instance=ExtResource("4_ynf5e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64.0384, -184.526)
@@ -184,6 +184,12 @@ mesh = SubResource("BoxMesh_bo1nx")
 
 [node name="Cube23" type="CSGMesh3D" parent="."]
 transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 37.6526, -0.0230789, 60.5187, -183.552)
+use_collision = true
+collision_layer = 3
+mesh = SubResource("BoxMesh_bo1nx")
+
+[node name="Cube31" type="CSGMesh3D" parent="."]
+transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 448.823, -0.0230789, 60.5187, -434.244)
 use_collision = true
 collision_layer = 3
 mesh = SubResource("BoxMesh_bo1nx")

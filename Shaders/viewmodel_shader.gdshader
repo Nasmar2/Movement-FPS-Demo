@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, shadows_disabled,cull_back,diffuse_burley,specular_schlick_ggx;
 
 uniform float viewmodel_fov = 80.0f;
 
