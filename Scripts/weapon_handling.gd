@@ -3,6 +3,7 @@ extends Node3D
 @onready var shotgun_preload = preload("res://Scenes/Guns/Shotgun/shotgun_spawn.tscn")
 @export var gun_impulse : float = 2.0
 
+
 var raycast
 var instance_place
 var shotgun
@@ -12,6 +13,7 @@ var equipped : bool = false
 var first_equip : bool = false
 var shotgun_position
 @onready var viewport_shader = $"Shotgun Weapon/ViewportShader"
+@onready var shotgun_ui = $"../../../UserInterface/Shotgun UI"
 
 func _ready() -> void:
 	instance_place = get_node(".").find_parent("Main")
@@ -65,16 +67,17 @@ func pickup_weapons() -> void:
 			shotgun.visible = true
 			equipped = true
 			shotgun.emit_signal("pick_up")
-			
+			shotgun_ui.visible = true
 			
 			raycast.get_collider().get_parent().queue_free() #Deletes the object when picked up.
-
+			
 			
 			
 			
 func drop_weapons() -> void:
 	if equipped and shotgun.visible: # If visible and player wants to drop, instance a new object at a fixed area.
 		shotgun.visible = false
+		shotgun_ui.visible = false
 		equipped = false
 		var drop_pos = $"../../../WeaponDropPos"
 		
@@ -90,4 +93,5 @@ func drop_weapons() -> void:
 		instance_weapon.apply_central_impulse(-Global.player.transform.basis.z * gun_impulse)
 
 
+	
 	

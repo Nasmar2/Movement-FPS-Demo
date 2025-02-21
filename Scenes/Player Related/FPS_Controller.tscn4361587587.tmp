@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dh4m13vcm0kat"]
+[gd_scene load_steps=31 format=3 uid="uid://dh4m13vcm0kat"]
 
 [ext_resource type="Script" uid="uid://nr1cvb5yx1y5" path="res://Scripts/fps_controller.gd" id="1_76y4a"]
 [ext_resource type="Script" uid="uid://cuxdy1ne2mm2w" path="res://Scripts/controller_camera.gd" id="2_al0pw"]
@@ -10,12 +10,10 @@
 [ext_resource type="Script" uid="uid://5pfpjeyh357r" path="res://Scripts/idle_state.gd" id="7_ihi6f"]
 [ext_resource type="Script" uid="uid://cttu6nf1wpflv" path="res://Scripts/running_state.gd" id="8_nd0f5"]
 [ext_resource type="Script" uid="uid://dlpe0ynbrpsv4" path="res://Scripts/jumping_state.gd" id="9_fmd18"]
-[ext_resource type="Script" uid="uid://0r5jbnw6187f" path="res://Scenes/Player Related/shotgun_ui.gd" id="10_hj6vk"]
 [ext_resource type="Texture2D" uid="uid://drxcayqlt6y48" path="res://Scenes/Guns/Shotgun/shotgun image.png" id="10_hjrl2"]
+[ext_resource type="Script" uid="uid://gd6t20xebrg0" path="res://Scripts/gun_info.gd" id="10_mlx2d"]
 [ext_resource type="Script" uid="uid://kvpxxfmjcfxf" path="res://Scripts/falling_state.gd" id="11_8q02h"]
-[ext_resource type="Script" uid="uid://d12e4h4jj142p" path="res://Scripts/shotgun_shell_logic.gd" id="11_j6mkb"]
 [ext_resource type="Script" uid="uid://1v08nn30eaii" path="res://Scripts/sliding_state.gd" id="11_na0j1"]
-[ext_resource type="PackedScene" uid="uid://ckt2maedui21a" path="res://Scenes/Guns/Shotgun/shotgun_shells.tscn" id="12_j6mkb"]
 [ext_resource type="Script" uid="uid://btm01gh633euf" path="res://Scripts/weapon_handling.gd" id="13_bjl33"]
 [ext_resource type="PackedScene" uid="uid://dhdk3vr18041n" path="res://Scenes/Guns/Shotgun/shotgun_weapon.tscn" id="14_d6ob7"]
 [ext_resource type="Script" uid="uid://dqri4y2wa2ks1" path="res://Scripts/camera_trauma.gd" id="16_hjrl2"]
@@ -377,44 +375,33 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Shotgun UI" type="Control" parent="UserInterface"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("10_hj6vk")
-
-[node name="ShotgunTexture" type="TextureRect" parent="UserInterface/Shotgun UI"]
+[node name="Gun Info" type="Container" parent="UserInterface"]
 modulate = Color(1, 1, 1, 0.447059)
-layout_mode = 0
-offset_left = 1088.0
-offset_top = 667.0
-offset_right = 1702.0
-offset_bottom = 834.0
-scale = Vector2(0.26, 0.26)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -245.0
+offset_top = -62.0
+offset_right = -195.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.4, 0.4)
+script = ExtResource("10_mlx2d")
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/Gun Info"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/Gun Info/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UserInterface/Gun Info/MarginContainer/VBoxContainer"]
+layout_mode = 2
 texture = ExtResource("10_hjrl2")
-
-[node name="Shotgun Shell Holder" type="Control" parent="UserInterface/Shotgun UI"]
-anchors_preset = 0
-offset_left = 1185.0
-offset_top = 689.0
-offset_right = 1225.0
-offset_bottom = 729.0
-script = ExtResource("11_j6mkb")
-
-[node name="Shotgun Shells" parent="UserInterface/Shotgun UI/Shotgun Shell Holder" instance=ExtResource("12_j6mkb")]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 5.0
-offset_right = 40.0
-offset_bottom = 45.0
-
-[node name="Shotgun Shells2" parent="UserInterface/Shotgun UI/Shotgun Shell Holder" instance=ExtResource("12_j6mkb")]
-layout_mode = 0
-offset_left = -14.0
-offset_top = 5.0
-offset_right = 26.0
-offset_bottom = 45.0
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
 script = ExtResource("6_3hs14")

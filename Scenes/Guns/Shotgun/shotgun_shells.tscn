@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckt2maedui21a"]
+
+[ext_resource type="Texture2D" uid="uid://irawsitsa2wq" path="res://Scenes/Guns/Shotgun/shotgun shell.png" id="1_a5ap8"]
+
+[node name="Shotgun Shells" type="TextureRect"]
+modulate = Color(1, 1, 1, 0.447059)
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 41.0
+offset_bottom = 43.0
+scale = Vector2(0.26, 0.26)
+texture = ExtResource("1_a5ap8")
