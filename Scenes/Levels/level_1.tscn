@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvkx8xdck7yoh"]
+
+[ext_resource type="Texture2D" uid="uid://cof5uh73uj0ht" path="res://Assets/Textures/Sky Texture/industrial_sunset_puresky_4k.hdr" id="1_3mqfk"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_iixi8"]
+panorama = ExtResource("1_3mqfk")
+
+[sub_resource type="Sky" id="Sky_344ge"]
+sky_material = SubResource("PanoramaSkyMaterial_iixi8")
+
+[sub_resource type="Environment" id="Environment_cyadu"]
+background_mode = 2
+sky = SubResource("Sky_344ge")
+ambient_light_source = 3
+
+[node name="Level 1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cyadu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.682586, 0.347672, -0.642807, 0.0126103, 0.873853, 0.486026, 0.730697, -0.339861, 0.592096, 0, 0, 0)
+light_energy = 2.0
+shadow_enabled = true

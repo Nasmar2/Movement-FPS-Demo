@@ -270,7 +270,7 @@ func camera_velocity_shake() -> void:
 		var speed_scale
 		speed_scale = velocity.length() * speed
 		
-		Global.camera_trauma.add_trauma(speed_scale, 5.0, 5.0)
+		Global.camera_trauma.add_trauma(speed_scale, 5.0, 10.0)
 	else:
 		Global.camera_trauma.add_trauma(0.0, 0.0, 0.0)
 		

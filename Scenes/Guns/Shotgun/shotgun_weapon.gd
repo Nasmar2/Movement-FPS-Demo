@@ -41,7 +41,7 @@ func _input(event: InputEvent) -> void:
 			
 			shotgun_knockback()
 			
-			Global.camera_trauma.add_trauma(5.0, 0.8, 5.0)
+			Global.camera_trauma.add_trauma(3.0 * Global.player.velocity.length() , 0.8  , 10.0)
 			shell_holder.remove_shells(bullet_count)
 	
 			

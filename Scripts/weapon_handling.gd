@@ -16,12 +16,10 @@ var shotgun_position
 @onready var shotgun_ui = $"../../../UserInterface/Shotgun UI"
 
 func _ready() -> void:
-	instance_place = get_node(".").find_parent("Main")
 	shotgun = $"Shotgun Weapon"
 	raycast = $"../RayCast3D"
 	shotgun_position = shotgun.rotation_degrees
-	
-
+	instance_place = get_tree().get_root()
 	
 func _process(_delta: float) -> void:
 		pass
@@ -80,7 +78,6 @@ func drop_weapons() -> void:
 		shotgun_ui.visible = false
 		equipped = false
 		var drop_pos = $"../../../WeaponDropPos"
-		
 		var weapon_position = drop_pos.global_transform.origin
 		
 		var instance_weapon = shotgun_preload.instantiate()

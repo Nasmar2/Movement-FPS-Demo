@@ -7,7 +7,7 @@ func _ready() -> void:
 	shell_children = get_children()
 	
 
-func remove_shells(count : int) -> void:
+func remove_shells(_count : int) -> void:
 	if is_instance_valid(shells):
 		if shells.get_child(0).visible:
 				shells.get_child(0).visible = false
@@ -15,7 +15,7 @@ func remove_shells(count : int) -> void:
 			shells.get_child(1).visible = false
 	
 
-func add_shells(count : int) -> void:
+func add_shells(_count : int) -> void:
 	for i in shell_children:
 		i.visible = true
 	

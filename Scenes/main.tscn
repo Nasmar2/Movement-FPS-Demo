@@ -13,12 +13,12 @@
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bejs4"]
 panorama = ExtResource("1_v50fn")
 
-[sub_resource type="Sky" id="Sky_344ge"]
+[sub_resource type="Sky" id="Sky_ynf5e"]
 sky_material = SubResource("PanoramaSkyMaterial_bejs4")
 
 [sub_resource type="Environment" id="Environment_wtxf6"]
 background_mode = 2
-sky = SubResource("Sky_344ge")
+sky = SubResource("Sky_ynf5e")
 ambient_light_source = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjvhh"]
@@ -54,7 +54,7 @@ material = SubResource("StandardMaterial3D_ynf5e")
 left_to_right = 0.0
 size = Vector3(20.685, 9.075, 10)
 
-[node name="Main" type="Node3D"]
+[node name="Level Tutorial" type="Node3D"]
 
 [node name="CheckpointHolder" type="Node" parent="."]
 
@@ -184,12 +184,6 @@ mesh = SubResource("BoxMesh_bo1nx")
 
 [node name="Cube23" type="CSGMesh3D" parent="."]
 transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 37.6526, -0.0230789, 60.5187, -183.552)
-use_collision = true
-collision_layer = 3
-mesh = SubResource("BoxMesh_bo1nx")
-
-[node name="Cube31" type="CSGMesh3D" parent="."]
-transform = Transform3D(15.7571, 0, 0, 0, 4.32936, 0, 0, 0, 448.823, -0.0230789, 60.5187, -434.244)
 use_collision = true
 collision_layer = 3
 mesh = SubResource("BoxMesh_bo1nx")
